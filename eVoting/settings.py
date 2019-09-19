@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+
+try:
+   from .local_settings import *
+except ImportError:
+    raise Exception("A local_settings.py file is required to run this project")
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -31,6 +37,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'register.apps.RegisterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,10 +82,13 @@ WSGI_APPLICATION = 'eVoting.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'eVoting',
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
     }
 }
+
 
 
 # Password validation
@@ -105,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -118,3 +128,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
