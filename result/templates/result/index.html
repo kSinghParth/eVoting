@@ -1,0 +1,18 @@
+<h1>Result</h1>
+{% for region in regions %}
+	<table>
+		<tr>
+		<th>name</th><th>votes</th><th>region</th>
+		</tr>
+	{% for cand in region %}
+	<tr>
+		<td>{{cand.name}}</td>
+		<td>{{cand.votes}}</td>
+		<td>{{cand.region}}</td>
+		
+
+	</tr>
+	{% endfor %}
+{% endfor %}
+
+</table>

@@ -4,6 +4,7 @@ from django.db import models
 class Candidate(models.Model):
 	name = models.CharField(max_length=200)
 	region = models.IntegerField()
+	votes = models.IntegerField()
 
 class Voter(models.Model):
 	name = models.CharField(max_length=200)
