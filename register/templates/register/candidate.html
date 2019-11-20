@@ -1,6 +1,25 @@
+{% extends 'common.html' %}
+
+{% block heading %}
+    <h2>Candidate<br> Registration Page</h2>
+    <p>Kindly fill all details correctly.</p>
+{% endblock %}
+{% block content %}
+
+
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+               
+               <form action="/register/candidate/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit">
+            </form>
+            </div>
+         </div>
+      </div>
 <h1>candidate</h1>
-<form action="/register/candidate/" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Submit">
-</form>
+
+
+{% endblock %}

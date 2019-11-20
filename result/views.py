@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
-
+import sys
+sys.path.insert(1,'/usr/share/doc/python3-fingerprint/examples')
+import example_search
 from register.models import Candidate, Voter
 # from result.models import Vote
 from register.forms import candidateForm, voterForm

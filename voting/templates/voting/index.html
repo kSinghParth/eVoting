@@ -1,12 +1,31 @@
-<h1>Vote</h1>
-{{ voter.name }}
-{{ voter.region }}
-{{ error }}
+{% extends 'common.html' %}
+
+{% block heading %}
+    <h2>{{voter.name}}<br> {{voter.region}}</h2>
+    <p>{{error}}</p>
+{% endblock %}
+{% block content %}
+
+
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+               
+               
 {% for cand in candidates%}
 	<p>{{cand}}</p>
 {% endfor %}
+{% if showform is 1 %}
 <form action="/vote/" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value="Submit">
 </form>
+{% endif %}
+            </div>
+         </div>
+      </div>
+<h1>candidate</h1>
+
+
+{% endblock %}

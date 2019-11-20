@@ -1,18 +1,75 @@
-<h1>Result</h1>
-{% for region in regions %}
-	<table>
-		<tr>
-		<th>name</th><th>votes</th><th>region</th>
-		</tr>
-	{% for cand in region %}
-	<tr>
-		<td>{{cand.name}}</td>
-		<td>{{cand.votes}}</td>
-		<td>{{cand.region}}</td>
-		
+{% extends 'common.html' %}
 
-	</tr>
-	{% endfor %}
-{% endfor %}
+{% block heading %}
+    <h2>General Elections<br> Results</h2>
+{% endblock %}
+{% block content %}
 
+
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+            
 </table>
+{% for region in regions %}
+<div class="col-md-12"> Region {{region.0.region}}
+  <canvas id="myChart{{region.0.region}}">vb</canvas>
+</div> <br>
+{% endfor %}
+ 
+</div>
+         </div>
+      </div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+{% for region in regions %}
+    var ctx{{region.0.region}} = document.getElementById("myChart{{region.0.region}}").getContext('2d');
+    var myChart{{region.0.region}} = new Chart(ctx{{region.0.region}}, {
+    type: 'bar',
+    data: {
+    labels: [
+                 {% for cand in region %}
+                     "{{cand.name}}",
+                 {% endfor %}
+             ],
+    datasets: [{
+    label: '# of Votes',
+    data: [{% for cand in region %}
+               {{cand.votes}},
+           {% endfor %}
+           ],
+    backgroundColor: [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(255, 159, 64, 0.2)'
+    ],
+    borderColor: [
+    'rgba(255,99,132,1)',
+    'rgba(54, 162, 235, 1)',
+    'rgba(255, 206, 86, 1)',
+    'rgba(75, 192, 192, 1)',
+    'rgba(153, 102, 255, 1)',
+    'rgba(255, 159, 64, 1)'
+    ],
+    borderWidth: 1
+    }]
+    },
+    options: {
+    scales: {
+    yAxes: [{
+    ticks: {
+    beginAtZero: true
+    }
+    }]
+    }
+    }
+});
+{% endfor %}
+</script>
+{% endblock %}

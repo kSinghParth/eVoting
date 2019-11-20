@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect
-
+import datetime
+from django.utils import timezone
 from register.models import Candidate, Voter
 from register.forms import candidateForm, voterForm
+import sys
+sys.path.insert(1,'/usr/share/doc/python3-fingerprint/examples')
+import example_enroll
 
 # Create your views here.
 def voter(request):
@@ -9,13 +13,16 @@ def voter(request):
 	if request.method=='POST':
 		form = voterForm(request.POST)
 		if form.is_valid():
-		    form.save(commit=True)
+                    example_enroll.pro()
+                    print("################")
+                    print((datetime.datetime.now(timezone.utc)-form.cleaned_data['dob']).total_seconds())
+                    form.save(commit=True)
 		return redirect('/register')
 	else:
 		form = voterForm()
 	context['form']=form
 	return render(request,'register/voter.html',context)
-
+        
 def candidate(request):
 	context={}
 	if request.method=='POST':
