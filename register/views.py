@@ -13,10 +13,14 @@ def voter(request):
 	if request.method=='POST':
 		form = voterForm(request.POST)
 		if form.is_valid():
-                    example_enroll.pro()
+                    fingerP=example_enroll.pro()
                     print("################")
+                    print(fingerP)
                     print((datetime.datetime.now(timezone.utc)-form.cleaned_data['dob']).total_seconds())
-                    form.save(commit=True)
+                    voter=form.save(commit=False)
+                    voter.finger=fingerP
+                    if(fingerP>0):
+                        voter.save()
 		return redirect('/register')
 	else:
 		form = voterForm()

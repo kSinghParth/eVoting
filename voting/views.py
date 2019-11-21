@@ -25,15 +25,24 @@ def index(request):
 					return HttpResponse('Success')
 			context['error']="Enter valid id"
 			return render(request,'voting/index.html',context)
-	example_search.pro()
-	voterid=48
-	context['voter']=Voter.objects.get(id=voterid)
+	voterid=example_search.pro()
 	context['showform']=1
+	if voterid <0:
+            voterid=100
+            context['showform']=0
+	context['voter']=Voter.objects.get(finger=voterid)
+	
 	print('*************************************')
 	if ((datetime.now(timezone.utc)-context['voter'].dob).total_seconds()/(365*86400)<18):
             context['error']="Underage bitch"
             context['showform']=0
-	request.session['id']=voterid
+	print(context['voter'].finger)
+	check=Vote.objects.filter(voter=context['voter'].id)
+	print(len(check))
+	if(len(check)>0):
+           context['error']="Already Voted"
+           context['showform']=0
+	request.session['id']=context['voter'].id
 	candidates=Candidate.objects.filter(region=context['voter'].region).values_list('id','name')
 	context['candidates']=candidates
 	form = voteForm()

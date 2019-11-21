@@ -15,10 +15,7 @@ class Voter(models.Model):
 	father_name =models.TextField(null=True)
 	dob =models.DateTimeField(blank=True, null=True)
 	age=models.IntegerField(null=True)
-	def __str__(self):
-            today =date.today()
-            delta=relativedelta(today,self.dob)
-            return str(delta.years)
+	finger=models.IntegerField(null=True)
 
 
                     
